@@ -90,9 +90,26 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    // creating vertex shader
+    // handle shaders
     uint vertexShader = compileShader(GL_VERTEX_SHADER, readFile("src/vertex_shader.glsl"));
     uint fragmentShader = compileShader(GL_FRAGMENT_SHADER, readFile("src/fragment_shader.glsl"));
+
+    uint shaderProgram;
+    shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    int success;
+    char infoLog[512];
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    if(!success){
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+    } else {
+        glUseProgram(shaderProgram);
+    }
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
 
     while (!glfwWindowShouldClose(window))
     {
