@@ -7,6 +7,7 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
+                // "${workspaceFolder}/basics/main.cpp",
                 "${file}",
                 "-o",
                 "${workspaceFolder}/build/${fileBasenameNoExtension}",
@@ -17,7 +18,8 @@
                 "-lXrandr",
                 "-lXi",
                 "-ldl",
-                "${workspaceFolder}/src/glad/glad.c",
+                "${workspaceFolder}/glad/glad.c",
+                "${workspaceFolder}/Shader/Shader.cpp",
             ],
             "options": {
                 "cwd": "${fileDirname}"
